@@ -6,17 +6,17 @@ class HomeController {
   late CurrencyModel toCurrency;
   late CurrencyModel fromCurrency;
 
-  TextEditingController toText = TextEditingController();
-  TextEditingController fromText = TextEditingController();
+  final TextEditingController? toText;
+  final TextEditingController? fromText;
 
-  HomeController() {
+  HomeController({this.toText, this.fromText}) {
     currencies = CurrencyModel.getCurrencies();
     toCurrency = currencies[0];
     fromCurrency = currencies[1];
   }
 
   void convert() {
-    String text = toText.text;
+    String text = toText!.text;
     double value = double.tryParse(text) ?? 1.0;
     double returnValue = 0;
 
@@ -30,6 +30,6 @@ class HomeController {
       returnValue = value * toCurrency.bitcoin!;
     }
 
-    fromText.text = returnValue.toStringAsFixed(2);
+    fromText!.text = returnValue.toStringAsFixed(2);
   }
 }
